@@ -12,7 +12,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "prop-types": "^15.7.2"
+    "prop-types": "^15.7.2",
+    "rome": "^10.0.4-beta"
   },
   "devDependencies": {
     "@babel/core": "^7.11.1",
