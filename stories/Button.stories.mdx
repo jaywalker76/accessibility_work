@@ -2,6 +2,7 @@ import { Meta, Story, ArgsTable } from '@storybook/addon-docs/blocks';
 
 import Button from "../src/Atoms/Buttons/Button";
 import Scaffold from "../src/Atoms/Buttons/Scaffold";
+import ImageButton from "../src/Atoms/Buttons/ImageButton";
 
 <Meta title='Button' component={Button} />
 
@@ -24,16 +25,48 @@ Use buttons to communicate actions users can take and to allow users to interact
 ### When not to use
 Do not use buttons as navigational elements. Instead, use links when the desired action is to take the user to a new page.
 
-
+### Notes
+- Both the starting and ending tag are mandatory. This element has the implicit ARIA role of button.
+- A submit button with the attribute **formaction** set, but without an associated form does nothing. You have to set a form owner, either by wrapping it in a ```<form>``` or set the attribute form to the id of the form.
+- ```<button>``` elements are much easier to style than ```<input>``` elements. You can add inner HTML content (think ```<i>```, ```<br>```, or even ```<img>```), and use ```::after``` and ```::before``` pseudo-elements for complex rendering.
+- If your buttons are not for submitting form data to a server, be sure to set their type attribute to button. Otherwise they will try to submit form data and to load the (nonexistent) response, possibly destroying the current state of the document.
 
 #### Button using native element
-<Story name='Using Basic Button' height='400px'>
+In this case we are using a Button component, which internally uses the ```<button><button />``` tag 
+
+<Story name='Using Basic Button' height='100px'>
   <Button id="valid-default" label="Native Button" />
 </Story>
 
 
+
+```
+const Button = ({ id = "base-button", label = "Button Msg" }) => (
+  <button class="deque-button" id={id}>
+    {label}
+  </button>
+)
+```
+
+#### Accessibility concerns
+
+##### Icon buttons
+Buttons that only show an icon to represent do not have an accessible name. 
+
+#### Button using native element
+<Story name='Using Image Button' height='100px'>
+  <ImageButton id="valid-default" label="Native Button" />
+</Story>
+
+Accessible names provide information for assistive technology, such as screen readers, 
+to access when they parse the document and generate an accessibility tree. 
+Assistive technology then uses the accessibility tree to navigate and manipulate page content.
+
+To give an icon button an accessible name, put text in the ```<button>``` element that concisely describes the button's 
+functionality.
+
 #### Button using scaffolding component
-<Story name='Button Using Spans' height='400px'>
+<Story name='Button Using Spans' height='100px'>
   <Scaffold
     id="span-button"
     label="Button Msg"
